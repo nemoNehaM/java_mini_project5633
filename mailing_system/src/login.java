@@ -191,6 +191,293 @@ public class login {
                         System.out.println("| Please try again.                |");
                         System.out.println("+----------------------------------+");
                     }
-                    break;
+                                        break;
+                            case 2:
 
-                   
+                            System.out.println("+----------------------------------+");
+                            System.out.println("|           Admin Login            |");
+                            System.out.println("+----------------------------------+");
+                            System.out.println("| Please enter your email address: |");
+                            System.out.println("+----------------------------------+");
+                            String a_email = System.console().readLine();
+                            System.out.println();
+                            System.out.println("+----------------------------------+");
+                            System.out.println("| Please enter your password:      |");
+                            System.out.println("+----------------------------------+");
+                            String a_password = new String(System.console().readPassword());
+                            System.out.println();
+                            String query48 = "SELECT * FROM admin WHERE admin_mail_address = '" + a_email + "' AND admin_password = '" + a_password + "'";
+                            ResultSet resultSet48 = statement.executeQuery(query48);
+                            if (resultSet48.next()) {
+                                // Successful login
+                                System.out.println("+----------------------------------+");
+                                System.out.println("|           Login Success          |");
+                                System.out.println("+----------------------------------+");
+                                System.out.println("| Welcome back, " + resultSet48.getString("admin_name") + "!         |");
+                                System.out.println("+----------------------------------+");
+                                int a_options;
+                                do{
+                                    System.out.println("+----------------------------------+");
+                                    System.out.println("|         Welcome to CMail         |");
+                                    System.out.println("+----------------------------------+");
+                                    System.out.println("| Options:                         |");
+                                    System.out.println("|        1. See users              |");
+                                    System.out.println("|        2. Delete users           |");
+                                    System.out.println("|        3. See all messages       |");
+                                    System.out.println("|        4. See the statistics     |");
+                                    System.out.println("+----------------------------------+");
+
+                                    a_options = Integer.parseInt(System.console().readLine());
+                                    System.out.println();
+
+                                    switch(a_options){
+                                        case 1:
+                                            // See all users
+                                            String selectAdminQuery = "SELECT * FROM users";
+                                            ResultSet rs = statement.executeQuery(selectAdminQuery);
+                                            while (rs.next()) {
+                                                int userId = rs.getInt("User_id");
+                                                String username = rs.getString("username");
+                                                String u_email = rs.getString("email_address");
+                                                String u_password = rs.getString("password");
+                                                String phone = rs.getString("phone_no");
+                                                Timestamp timestamp = rs.getTimestamp("datestamp");
+                                        
+                                                // Format the output
+                                                String output = String.format("User ID: %d\nUsername: %s\nEmail: %s\nPassword: %s\nPhone: %s\nTimestamp: %s\n", 
+                                                                            userId, username, u_email, u_password, phone, timestamp);
+                                                System.out.println(output);
+                                            }
+
+
+                                            break;
+
+                                        case 2:
+                                            // Delete users
+                                            Scanner sc = new Scanner(System.in);
+                                            System.out.print("Enter the user that you want to delete: ");
+                                            String d_user = sc.nextLine();
+
+                                            String selectUserQuery0 = "SELECT user_id FROM Users WHERE username = '" + d_user + "'";
+
+                                            ResultSet resultSet07 = statement.executeQuery(selectUserQuery0);
+                                            // int userID = resultSet0.getInt("user_id");
+                                            int userID07;
+
+                                            if (resultSet07.next()) {
+                                                userID07 = resultSet07.getInt("user_id");
+                                                String inboxDeleteQuery = "DELETE FROM Inbox WHERE sender_id = " + userID07 + " OR receiver_id = " + userID07;
+                                                statement.executeUpdate(inboxDeleteQuery);
+                                                
+                                                String deleteQuery = "DELETE FROM users WHERE User_id = '" + userID07 + "'";
+                                                statement.executeUpdate(deleteQuery);
+
+                                                System.out.println("User with name " + d_user + " has been deleted successfully.");
+                                            }
+
+                                            break;
+
+                                        case 3:
+                                        // See all messages
+                                        String m_query = "SELECT * FROM Inbox";
+                                        Statement stmt = connection.createStatement();
+                                        ResultSet m_rs = stmt.executeQuery(m_query);
+                                        while(m_rs.next()) {
+                                            int senderId = m_rs.getInt("sender_id");
+                                            int receiverId = m_rs.getInt("receiver_id");
+                                            String subject = m_rs.getString("subject");
+                                            String message = m_rs.getString("message");
+                                            Timestamp dateReceived = m_rs.getTimestamp("date_received");
+                                            
+                                            System.out.println("Sender ID: " + senderId);
+                                            System.out.println("Receiver ID: " + receiverId);
+                                            System.out.println("Subject: " + subject);
+                                            System.out.println("Message: " + message);
+                                            System.out.println("Date Received: " + dateReceived);
+                                            System.out.println();
+                                        }
+                                        
+                                        break;
+
+                                        case 4:
+                                        // See Stats of message send and recived by the users
+                                        // Get the user_id, username, and email_address for every user
+                                        String getUsersQuery1 = "SELECT user_id, username, email_address FROM Users";
+                                        Statement getUsersStatement = connection.createStatement();
+                                        ResultSet usersResult = getUsersStatement.executeQuery(getUsersQuery1);
+                                        
+                                        // Iterate over each user and get their message statistics
+                                        while (usersResult.next()) {
+                                            int userId = usersResult.getInt("user_id");
+                                            String username = usersResult.getString("username");
+                                            String emailAddress = usersResult.getString("email_address");
+                                            
+                                            // Get the number of messages received by the user
+                                            String countReceivedQuery = "SELECT COUNT(*) FROM Inbox WHERE receiver_id = ?";
+                                            PreparedStatement countReceivedStatement = connection.prepareStatement(countReceivedQuery);
+                                            countReceivedStatement.setInt(1, userId);
+                                            ResultSet countReceivedResult = countReceivedStatement.executeQuery();
+                                            countReceivedResult.next();
+                                            int numReceived = countReceivedResult.getInt(1);
+                                            
+                                            // Get the number of messages sent by the user
+                                            String countSentQuery = "SELECT COUNT(*) FROM Inbox WHERE sender_id = ?";
+                                            PreparedStatement countSentStatement = connection.prepareStatement(countSentQuery);
+                                            countSentStatement.setInt(1, userId);
+                                            ResultSet countSentResult = countSentStatement.executeQuery();
+                                            countSentResult.next();
+                                            int numSent = countSentResult.getInt(1);
+                                            
+                                            // Print the statistics for the user
+                                            System.out.println("User: " + username + " (" + emailAddress + ")");
+                                            System.out.println("Number of messages received: " + numReceived);
+                                            System.out.println("Number of messages sent: " + numSent);
+                                            System.out.println();
+                                        }                            
+                                        break;
+                                        
+                                        default:
+                                        System.out.println("Invalid choice.. Please try other choice");
+                                        break;
+                                    }
+
+                                }while(a_options != -1);
+
+
+
+
+
+                            }
+                            else{
+                                // Invalid email or password
+                                System.out.println("+----------------------------------+");
+                                System.out.println("|           Login Failed           |");
+                                System.out.println("+----------------------------------+");
+                                System.out.println("| Invalid email or password.       |");
+                                System.out.println("| Please try again.                |");
+                                System.out.println("+----------------------------------+");
+                            }
+
+
+
+
+
+                            break;
+
+                            case 3:
+                            
+                            Scanner scanner = new Scanner(System.in);
+                            String UA;
+                            System.out.println("Are you going to enter user or admin: ");
+                            UA = scanner.nextLine();
+
+                            if(UA.equals("user")){
+                                System.out.println("+--------------------------------+");
+                                System.out.println("| New User                       |");
+                                System.out.println("+--------------------------------+");
+                                System.out.println("Enter the following details:");
+                                System.out.print("Username: ");
+                                String username = scanner.nextLine();
+                                
+                                // Check if the username already exists in the database
+                                String checkUsernameQuery = "SELECT * FROM Users WHERE username = ?";
+                                PreparedStatement checkUsernameStatement = connection.prepareStatement(checkUsernameQuery);
+                                checkUsernameStatement.setString(1, username);
+                                ResultSet rs = checkUsernameStatement.executeQuery();
+                                if (rs.next()) {
+                                    System.out.println("Username already exists. Please choose a different username.");
+                                } else {
+                                    System.out.print("Password: ");
+                                    String password2 = scanner.nextLine();
+                                    System.out.print("Email Address: ");
+                                    String email2 = scanner.nextLine();
+                                    System.out.print("Phone Number: ");
+                                    String phone = scanner.nextLine();
+                                    String addUserQuery = "INSERT INTO Users (username, password, email_address, phone_no) VALUES (?, ?, ?, ?)";
+                                    PreparedStatement addUserStatement = connection.prepareStatement(addUserQuery);
+                                    addUserStatement.setString(1, username);
+                                    addUserStatement.setString(2, password2);
+                                    addUserStatement.setString(3, email2);
+                                    addUserStatement.setString(4, phone);
+                                    addUserStatement.executeUpdate();
+                                    System.out.println("+--------------------------------+");
+                                    System.out.println("| User added successfully!       |");
+                                    System.out.println("+--------------------------------+");
+                                }
+                            }
+
+                            else if(UA.equals("admin")){
+                            System.out.println("+--------------------------------+");
+                            System.out.println("| New Admin                      |");
+                            System.out.println("+--------------------------------+");
+                            System.out.println("Enter the following details:");
+                            System.out.print("Enter admin name: ");
+                            String admin_name = scanner.nextLine();
+                            System.out.print("Enter admin Email Address: ");
+                            String admin_email = scanner.nextLine();
+                            System.out.print("Enter admin Password: ");
+                            String admin_pass = scanner.nextLine();
+                            String addAdminQuery = "INSERT INTO admin (admin_name, admin_password, admin_mail_address) VALUES (?, ?, ?)";
+                            PreparedStatement addAdminStatemeny = connection.prepareStatement(addAdminQuery);
+                            addAdminStatemeny.setString(1, admin_name);
+                            addAdminStatemeny.setString(2, admin_pass);
+                            addAdminStatemeny.setString(3, admin_email);
+                            addAdminStatemeny.executeUpdate();
+                            System.out.println("+--------------------------------+");
+                            System.out.println("| Admin added successfully!       |");
+                            System.out.println("+--------------------------------+");
+
+
+                            }
+                            break;
+                            
+                        
+                        case 4:
+                            // Forgot Password
+                                System.out.println("+--------------------------------+");
+                                System.out.println("| Forgot Password                |");
+                                System.out.println("+--------------------------------+");
+                                System.out.println("Please enter your email address:");
+                                String email3 = System.console().readLine();
+                                System.out.println("Please enter a new password:");
+                                String newPassword = new String(System.console().readPassword());
+                                String updateQuery = "UPDATE Users SET password = '" + newPassword + "' WHERE email_address = '" + email3 + "'";
+                                int numRowsUpdated = statement.executeUpdate(updateQuery);
+                                if (numRowsUpdated > 0) {
+                                    // Password reset successful
+                                    System.out.println("Password reset successful!");
+                                } else {
+                                    // Password reset failed
+                                    System.out.println("Password reset failed. Please try again.");
+                                }
+                                break;
+
+                        case 5:
+                            System.out.println("+--------------------------------+");
+                            System.out.println("| Thank you for using CMail      |");
+                            System.out.println("+--------------------------------+");
+                            System.exit(0);
+                                
+
+                        default:
+                                System.out.println("Invalid choice. Try again");
+                                break;
+
+                    }
+        } while(choice != -1 );
+                    
+                    
+                    // Process the user's choice
+                    
+                    
+                    // Close the connection
+                    connection.close();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        }
+
+                        

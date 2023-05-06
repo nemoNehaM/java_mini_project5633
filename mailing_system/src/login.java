@@ -1,6 +1,9 @@
 import java.sql.*;
 import java.util.*;
 import java.sql.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class login {
    
@@ -8,7 +11,7 @@ public class login {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/test1"; // Replace "mydatabase" with your database name
         String user = "root"; // Replace "username" with your database username
-        String password1 = "nehaniki123@J"; // Replace "password" with your database password
+        String password1 = "12345"; // Replace "password" with your database password
         
         try {
             // Connect to the database
@@ -330,8 +333,18 @@ public class login {
                                             
                                             // Print the statistics for the user
                                             System.out.println("User: " + username + " (" + emailAddress + ")");
-                                            System.out.println("Number of messages received: " + numReceived);
-                                            System.out.println("Number of messages sent: " + numSent);
+                                            System.out.print("Number of messages received: ");
+                                            for(int i = 0;i < numReceived; i++) {
+                                                System.out.print("|");
+                                            }
+                                            System.out.print(" - "+numReceived);
+                                            System.out.println();
+                                            
+                                            System.out.print("Number of messages sent: ");
+                                            for(int i = 0;i < numSent; i++) {
+                                                System.out.print("|");
+                                            }
+                                            System.out.print(" - "+numSent);
                                             System.out.println();
                                         }                            
                                         break;

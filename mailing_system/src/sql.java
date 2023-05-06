@@ -1,11 +1,14 @@
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class sql {
 
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/test1"; 
         String user = "root"; 
-        String password = "nehaniki123@J"; 
+        String password = "12345"; 
         
         try {
             // Connect to the database

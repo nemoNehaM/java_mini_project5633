@@ -27,16 +27,16 @@ public class login {
             
             // Prompt the user to choose an option
             do{
-                System.out.println("\033[1;31m+----------------------------------+");
-                System.out.println("\033[1;33m|         Welcome to CMail         |");
-                System.out.println("\033[1;31m+----------------------------------+");
-                System.out.println("\033[1;31m| Options:                         |");
-                System.out.println("\033[1;31m|        1. User Login             |");
-                System.out.println("\033[1;31m|        2. Admin Login            |");
-                System.out.println("\033[1;31m|        3. New User               |");
-                System.out.println("\033[1;31m|        4. Forgot Password        |");
-                System.out.println("\033[1;31m|        5. Exit                   |");
-                System.out.println("\033[1;31m+----------------------------------+");
+                System.out.println("\t\t\t\t\t\t\033[1;31m+----------------------------------+");
+                System.out.println("\t\t\t\t\t\t\033[1;33m|         Welcome to CMail         |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m+----------------------------------+");
+                System.out.println("\t\t\t\t\t\t\033[1;31m| Options:                         |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m|        1. User Login             |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m|        2. Admin Login            |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m|        3. New User               |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m|        4. Forgot Password        |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m|        5. Exit                   |");
+                System.out.println("\t\t\t\t\t\t\033[1;31m+----------------------------------+");
 
 
                 choice = Integer.parseInt(System.console().readLine());
@@ -49,16 +49,16 @@ public class login {
 
                 switch (choice) {
                     case 1:
-                    System.out.println(BLUE + "+----------------------------------+" + RESET);
-                    System.out.println(BLUE + "|           User Login             |" + RESET);
-                    System.out.println(BLUE + "+----------------------------------+" + RESET);
-                    System.out.println(BLUE + "| Please enter your email address: |" + RESET);
-                    System.out.println(BLUE + "+----------------------------------+" + RESET);
+                    System.out.println(BLUE + "\t\t\t\t\t\t+----------------------------------+" + RESET);
+                    System.out.println(BLUE + "\t\t\t\t\t\t|           User Login             |" + RESET);
+                    System.out.println(BLUE + "\t\t\t\t\t\t+----------------------------------+" + RESET);
+                    System.out.println(BLUE + "\t\t\t\t\t\t| Please enter your email address: |" + RESET);
+                    System.out.println(BLUE + "\t\t\t\t\t\t+----------------------------------+" + RESET);
                     String email = System.console().readLine();
                     System.out.println();
-                    System.out.println(GREEN + "+----------------------------------+" + RESET);
-                    System.out.println(GREEN + "| Please enter your password:      |" + RESET);
-                    System.out.println(GREEN + "+----------------------------------+" + RESET);
+                    System.out.println(GREEN + "\t\t\t\t\t\t+----------------------------------+" + RESET);
+                    System.out.println(GREEN + "\t\t\t\t\t\t| Please enter your password:      |" + RESET);
+                    System.out.println(GREEN + "\t\t\t\t\t\t+----------------------------------+" + RESET);
                     String password = new String(System.console().readPassword());
                     System.out.println();
                     String query = "SELECT * FROM Users WHERE email_address = '" + email + "' AND password = '" + password + "'";
@@ -130,12 +130,12 @@ public class login {
                                                 final String ANSI_GREEN = "\u001B[32m";
                                                 final String ANSI_BLUE = "\u001B[34m";
 
-                                                System.out.println(ANSI_GREEN + "Sender Name: " + senderName + ANSI_RESET);
-                                                System.out.println(ANSI_GREEN + "Receiver Name: " + receiverName + ANSI_RESET);
-                                                System.out.println(ANSI_BLUE + "Subject: " + subject + ANSI_RESET);
-                                                System.out.println("Message Body: " + messageBody);
-                                                System.out.println("Date Received: " + dateReceived);
-                                                System.out.println("----------------------");
+                                                System.out.println(ANSI_GREEN + "\t\t\t\t\t\tSender Name: " + senderName + ANSI_RESET);
+                                                System.out.println(ANSI_GREEN + "\t\t\t\t\t\tReceiver Name: " + receiverName + ANSI_RESET);
+                                                System.out.println(ANSI_BLUE + "\t\t\t\t\t\tSubject: " + subject + ANSI_RESET);
+                                                System.out.println("\t\t\t\t\t\tMessage Body: " + messageBody);
+                                                System.out.println("\t\t\t\t\t\tDate Received: " + dateReceived);
+                                                System.out.println("\t\t\t\t\t\t----------------------");
                                             }
                                         }
 
@@ -197,7 +197,8 @@ public class login {
                                     
                                     default:
                                         
-                                        System.out.print("Invalid choice!!");
+                                        System.out.println("Invalid choice!!");
+
                                     
                                         break;
                         
@@ -214,12 +215,12 @@ public class login {
                             final String ANSI_BLUE = "\u001B[34m";
                             final String ANSI_RESET = "\u001B[0m";
                             
-                            System.out.println(ANSI_BLUE + "+----------------------------------+");
-                            System.out.println("|           Login Failed           |");
-                            System.out.println("+----------------------------------+");
-                            System.out.println("| Invalid email or password.       |");
-                            System.out.println("| Please try again.                |");
-                            System.out.println("+----------------------------------+" + ANSI_RESET);
+                            System.out.println(ANSI_BLUE + "\t\t\t\t\t\t+----------------------------------+");
+                            System.out.println("\t\t\t\t\t\t|           Login Failed           |");
+                            System.out.println("\t\t\t\t\t\t+----------------------------------+");
+                            System.out.println("\t\t\t\t\t\t| Invalid email or password.       |");
+                            System.out.println("\t\t\t\t\t\t| Please try again.                |");
+                            System.out.println("\t\t\t\t\t\t+----------------------------------+" + ANSI_RESET);
                             
                         }
                                             break;
@@ -250,26 +251,26 @@ public class login {
                                 final String ANSI_GREEN = "\u001B[32m";
                                 //inal String ANSI_RESET = "\u001B[0m";
 
-                                System.out.println("+----------------------------------+");
-                                System.out.println("|           Login Success          |");
-                                System.out.println("+----------------------------------+");
-                                System.out.println("| Welcome back, " + ANSI_GREEN + resultSet48.getString("admin_name") + ANSI_RESET + "!         |");
-                                System.out.println("+----------------------------------+");
+                                System.out.println("\t\t\t\t\t\t+----------------------------------+");
+                                System.out.println("\t\t\t\t\t\t|           Login Success          |");
+                                System.out.println("\t\t\t\t\t\t+----------------------------------+");
+                                System.out.println("\t\t\t\t\t\t| Welcome back, " + ANSI_GREEN + resultSet48.getString("admin_name") + ANSI_RESET + "!         |");
+                                System.out.println("\t\t\t\t\t\t+----------------------------------+");
 
                                 int a_options;
                                 do {
                                     final String ANSI_BLUE = "\u001B[34m";
                                   //  final String ANSI_RESET = "\u001B[0m";
                                     
-                                    System.out.println("+----------------------------------+");
-                                    System.out.println("|         Welcome to CMail         |");
-                                    System.out.println("+----------------------------------+");
-                                    System.out.println("| Options:                         |");
-                                    System.out.println(ANSI_BLUE + "|        1. See users              |");
-                                    System.out.println("|        2. Delete users           |");
-                                    System.out.println("|        3. See all messages       |");
-                                    System.out.println("|        4. See the statistics     |");
-                                    System.out.println("+----------------------------------+");
+                                    System.out.println("\t\t\t\t\t\t+----------------------------------+");
+                                    System.out.println("\t\t\t\t\t\t|         Welcome to CMail         |");
+                                    System.out.println("\t\t\t\t\t\t+----------------------------------+");
+                                    System.out.println("\t\t\t\t\t\t| Options:                         |");
+                                    System.out.println(ANSI_BLUE + "\t\t\t\t\t\t|        1. See users              |");
+                                    System.out.println("\t\t\t\t\t\t|        2. Delete users           |");
+                                    System.out.println("\t\t\t\t\t\t|        3. See all messages       |");
+                                    System.out.println("\t\t\t\t\t\t|        4. See the statistics     |");
+                                    System.out.println("\t\t\t\t\t\t+----------------------------------+");
                                     
                                
 
@@ -440,11 +441,11 @@ public class login {
                                 final String ANSI_YELLOW = "\u001B[33m";
                                 final String ANSI_RESET1 = "\u001B[0m";
                                 
-                                System.out.println("+--------------------------------+");
-                                System.out.println("| New User                       |");
-                                System.out.println("+--------------------------------+");
-                                System.out.println("Enter the following details:");
-                                System.out.print(ANSI_YELLOW + "Username: " + ANSI_RESET1);
+                                System.out.println("\t\t\t\t\t\t+--------------------------------+");
+                                System.out.println("\t\t\t\t\t\t| New User                       |");
+                                System.out.println("\t\t\t\t\t\t+--------------------------------+");
+                                System.out.println("\t\t\t\t\t\tEnter the following details:");
+                                System.out.print(ANSI_YELLOW + "\t\t\t\t\t\tUsername: " + ANSI_RESET1);
                                 
                                 String username = scanner.nextLine();
                                 

@@ -92,50 +92,53 @@ public class login {
                             
                             switch(options){
                                 case 1:
-                                    // Define the SQL query for selecting the user ID where the email matches the input email address
-                                    String selectUserQuery = "SELECT user_id FROM Users WHERE email_address = '" + email + "'";
-
-                                    // Execute the query to select the user ID
-                                    ResultSet resultSet0 = statement.executeQuery(selectUserQuery);
-                                    // int userID = resultSet0.getInt("user_id");
-                                    int userID;
-
-                                    if (resultSet0.next()) {
-                                        userID = resultSet0.getInt("user_id");
-                                        // System.out.println("User ID for " + email + ": " + userID);
-                                        // if (!resultSet0.isBeforeFirst()) {
-                                        //     System.out.println("No messages found in the inbox!");
-                                        // }
-                                        // else{
-                                        String selectInboxQuery = "SELECT * FROM Inbox WHERE receiver_id = " + userID;
-                                        // Execute the query to select all messages from the Inbox table
-                                        ResultSet resultSet8 = statement.executeQuery(selectInboxQuery);
-                                        // Loop through the result set and print out the message details
-                                        while (resultSet8.next()) {
-                                            int messageID = resultSet8.getInt("receiver_id");
-                                            int senderID = resultSet8.getInt("sender_id");
-                                            String subject = resultSet8.getString("subject");
-                                            String messageBody = resultSet8.getString("message");
-                                            Date dateReceived = resultSet8.getDate("date_received");
-                                            
-                                            // Print out the message details
-                                           // ANSI escape sequences for different colors
-                                            final String ANSI_RESET = "\u001B[0m";
-                                            final String ANSI_RED = "\u001B[31m";
-                                            final String ANSI_GREEN = "\u001B[32m";
-                                            final String ANSI_BLUE = "\u001B[34m";
-
-                                            System.out.println(ANSI_RED + "Message ID: " + messageID + ANSI_RESET);
-                                            System.out.println(ANSI_GREEN + "Sender ID: " + senderID + ANSI_RESET);
-                                            System.out.println(ANSI_BLUE + "Subject: " + subject + ANSI_RESET);
-                                            System.out.println("Message Body: " + messageBody);
-                                            System.out.println("Date Received: " + dateReceived);
-                                            System.out.println("----------------------");
-
-                                        }
                                     // }
                                         
-                                    } 
+                                    // Define the SQL query for selecting the user ID where the email matches the input email address
+                                        String selectUserQuery = "SELECT user_id FROM Users WHERE email_address = '" + email + "'";
+
+                                        // Execute the query to select the user ID
+                                        ResultSet resultSet0 = statement.executeQuery(selectUserQuery);
+                                        int userID;
+
+                                        if (resultSet0.next()) {
+                                            userID = resultSet0.getInt("user_id");
+
+                                            // Define the SQL query to select messages from the Inbox table with sender and receiver names
+                                            String selectInboxQuery = "SELECT Inbox.*, Sender.username AS sender_name, Receiver.username AS receiver_name " +
+                                                "FROM Inbox " +
+                                                "JOIN Users AS Sender ON Inbox.sender_id = Sender.user_id " +
+                                                "JOIN Users AS Receiver ON Inbox.receiver_id = Receiver.user_id " +
+                                                "WHERE receiver_id = " + userID;
+
+                                            // Execute the query to select all messages from the Inbox table
+                                            ResultSet resultSet8 = statement.executeQuery(selectInboxQuery);
+
+                                            // Loop through the result set and print out the message details
+                                            while (resultSet8.next()) {
+                                                int senderID = resultSet8.getInt("sender_id");
+                                                String senderName = resultSet8.getString("sender_name");
+                                                String receiverName = resultSet8.getString("receiver_name");
+                                                String subject = resultSet8.getString("subject");
+                                                String messageBody = resultSet8.getString("message");
+                                                Date dateReceived = resultSet8.getDate("date_received");
+
+                                                // Print out the message details
+                                                // ANSI escape sequences for different colors
+                                                final String ANSI_RESET = "\u001B[0m";
+                                                final String ANSI_RED = "\u001B[31m";
+                                                final String ANSI_GREEN = "\u001B[32m";
+                                                final String ANSI_BLUE = "\u001B[34m";
+
+                                                System.out.println(ANSI_GREEN + "Sender Name: " + senderName + ANSI_RESET);
+                                                System.out.println(ANSI_GREEN + "Receiver Name: " + receiverName + ANSI_RESET);
+                                                System.out.println(ANSI_BLUE + "Subject: " + subject + ANSI_RESET);
+                                                System.out.println("Message Body: " + messageBody);
+                                                System.out.println("Date Received: " + dateReceived);
+                                                System.out.println("----------------------");
+                                            }
+                                        }
+
 
                                     break;
 

@@ -8,10 +8,12 @@ public class sql {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/test1"; 
         String user = "root"; 
-        String password = "12345"; 
+        String password = "nehaniki123@J"; 
         
         try {
             // Connect to the database
+           // Class.forName("com.mysql.cj.jdbc.Driver");
+        //    Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, user, password);
             
             // Create the Users table

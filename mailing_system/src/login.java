@@ -122,6 +122,8 @@ public class login {
                                                 String subject = resultSet8.getString("subject");
                                                 String messageBody = resultSet8.getString("message");
                                                 Date dateReceived = resultSet8.getDate("date_received");
+                                                Timestamp dateReceived1 = resultSet8.getTimestamp("date_received1");
+                                            
 
                                                 // Print out the message details
                                                 // ANSI escape sequences for different colors
@@ -134,6 +136,7 @@ public class login {
                                                 System.out.println(ANSI_GREEN + "\t\t\t\t\t\tReceiver Name: " + receiverName + ANSI_RESET);
                                                 System.out.println(ANSI_BLUE + "\t\t\t\t\t\tSubject: " + subject + ANSI_RESET);
                                                 System.out.println("\t\t\t\t\t\tMessage Body: " + messageBody);
+                                                System.out.println("\t\t\t\t\t\tDate Received: " + dateReceived1);
                                                 System.out.println("\t\t\t\t\t\tDate Received: " + dateReceived);
                                                 System.out.println("\t\t\t\t\t\t----------------------");
                                             }
@@ -197,7 +200,7 @@ public class login {
                                     
                                     default:
                                         
-                                        System.out.println("Invalid choice!!");
+                                        System.out.println("Logout!!");
 
                                     
                                         break;
@@ -270,6 +273,7 @@ public class login {
                                     System.out.println("\t\t\t\t\t\t|        2. Delete users           |");
                                     System.out.println("\t\t\t\t\t\t|        3. See all messages       |");
                                     System.out.println("\t\t\t\t\t\t|        4. See the statistics     |");
+                                    System.out.println("\t\t\t\t\t\t|        5. Use '-1' to Logout     |");
                                     System.out.println("\t\t\t\t\t\t+----------------------------------+");
                                     
                                
@@ -336,6 +340,7 @@ public class login {
                                             String message = m_rs.getString("message");
                                             Timestamp dateReceived = m_rs.getTimestamp("date_received");
                                             
+                                            
                                             final String ANSI_YELLOW = "\u001B[33m";
                                             //final String ANSI_CYAN = "\u001B[36m";
                                             //final String ANSI_RESET = "\u001B[0m";
@@ -395,11 +400,13 @@ public class login {
                                             }
                                             System.out.print(" - "+numSent);
                                             System.out.println();
+                                            System.out.println();
+
                                         }                            
                                         break;
                                         
                                         default:
-                                        System.out.println("Invalid choice.. Please try other choice");
+                                        System.out.println("Logged Out!!!");
                                         break;
                                     }
 
@@ -549,7 +556,7 @@ public class login {
                                 
 
                         default:
-                                System.out.println("Invalid choice. Try again");
+                                System.out.println("Logged Out!!!");
                                 break;
 
                     }

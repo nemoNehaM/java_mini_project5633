@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class login {
 
     public static void main(String[] args) {
+<<<<<<< Updated upstream
         String url = "jdbc:mysql://localhost:3306/test1"; // Replace "mydatabase" with your database name
         String user = "root"; // Replace "username" with your database username
         String password1 = "nehaniki123@J"; // Replace "password" with your database password
@@ -19,6 +20,17 @@ public class login {
 
             Connection connection = DriverManager.getConnection(url, user, password1);
 
+=======
+        
+        
+        try {
+            // Connect to the database
+            String url = "jdbc:mysql://localhost:3306/test1"; // Replace "mydatabase" with your database name
+            String user = "root"; // Replace "username" with your database username
+            String password1 = "12345"; // Replace "password" with your database password
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "12345");
+            
+>>>>>>> Stashed changes
             // Create the statement object
             Statement statement = connection.createStatement();
 

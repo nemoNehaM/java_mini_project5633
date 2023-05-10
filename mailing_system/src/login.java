@@ -4,12 +4,15 @@ import java.sql.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import spam.spam;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class login {
 
-    public static void main(String[] args) {
-<<<<<<< Updated upstream
-        String url = "jdbc:mysql://localhost:3306/test1"; // Replace "mydatabase" with your database name
+    public static void main(String[] args)  throws IOException{
+        String url = "jdbc:mysql://localhost:3306/test3"; // Replace "mydatabase" with your database name
         String user = "root"; // Replace "username" with your database username
         String password1 = "nehaniki123@J"; // Replace "password" with your database password
 
@@ -20,17 +23,6 @@ public class login {
 
             Connection connection = DriverManager.getConnection(url, user, password1);
 
-=======
-        
-        
-        try {
-            // Connect to the database
-            String url = "jdbc:mysql://localhost:3306/test1"; // Replace "mydatabase" with your database name
-            String user = "root"; // Replace "username" with your database username
-            String password1 = "12345"; // Replace "password" with your database password
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "12345");
-            
->>>>>>> Stashed changes
             // Create the statement object
             Statement statement = connection.createStatement();
 
@@ -141,6 +133,7 @@ public class login {
                                                 String receiverName = resultSet8.getString("receiver_name");
                                                 String subject = resultSet8.getString("subject");
                                                 String messageBody = resultSet8.getString("message");
+                                                String Is_ham = resultSet8.getString("IsHam");
                                                 Date dateReceived = resultSet8.getDate("date_received");
                                                 
 
@@ -158,7 +151,7 @@ public class login {
                                                 System.out.println(
                                                         ANSI_BLUE + "Subject: " + subject + ANSI_RESET);
                                                 System.out.println("Message Body: " + messageBody);
-                                                
+                                                System.out.println("Is the message is ham: " + Is_ham);
                                                 System.out.println("tDate Received: " + dateReceived);
                                                 System.out.println("----------------------");
                                                 System.out.println();
@@ -209,17 +202,23 @@ public class login {
                                         String subject = scanner.nextLine();
                                         System.out.print(ANSI_YELLOW + "Enter message body: " + ANSI_RESET);
                                         String messageBody = scanner.nextLine();
+                                        boolean IsHam = spam.checkSpam(messageBody);
 
-                                        // Define the SQL query for inserting a new message into the Inbox table
-                                        String insertInboxQuery = "INSERT INTO Inbox (sender_id, receiver_id, subject, message, date_received) VALUES ("
-                                                + userIDr + "," + receiverID + ",'" + subject + "','" + messageBody
-                                                + "',NOW())";
+                                        String filename = "message_" + System.currentTimeMillis() + ".txt";
+                                        try (PrintWriter writer = new PrintWriter(new File(filename))) {
+                                            writer.println("Subject: " + subject);
+                                            writer.println("Body:");
+                                            writer.print(messageBody);
+                                        }
+
+                                        String insertInboxQuery = "INSERT INTO Inbox (sender_id, receiver_id, subject, message, IsHam, date_received) VALUES (" 
+                                        + userIDr + "," + receiverID + ",'" + subject + "','" + messageBody + "','" + IsHam + "',NOW())";
 
                                         // Execute the query to insert the new message into the Inbox table
                                         statement.executeUpdate(insertInboxQuery);
 
-                                        System.out.println("\t\t\t\t\t\tMessage sent successfully!");
-                                        System.out.println();
+                                        System.out.println("Message sent successfully!");
+
                                         break;
 
                                     case 3:

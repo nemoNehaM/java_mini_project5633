@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class sql {
 
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/test1"; 
+        String url = "jdbc:mysql://localhost:3306/test3"; 
         String user = "root"; 
         String password = "nehaniki123@J"; 
         
@@ -35,6 +35,7 @@ public class sql {
                                     + "receiver_id INT NOT NULL,"
                                     + "subject VARCHAR(255) NOT NULL,"
                                     + "message TEXT NOT NULL,"
+                                    + "IsHam TEXT NOT NULL,"
                                     + "date_received DATETIME NOT NULL,"
                                     + "FOREIGN KEY (sender_id) REFERENCES Users(user_id),"
                                     + "FOREIGN KEY (receiver_id) REFERENCES Users(user_id)"

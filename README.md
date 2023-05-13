@@ -16,7 +16,37 @@ Exit
 
 # Technologies Used
 This project is built using Java and MySQL.
+# Output
+#Login Page
+<br>
+<img width="325" alt="openpage" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/bd6c22a8-8062-49db-8f71-2c856cd7d096"></br>
+#Create new user and admin
+##admin
+<br>
+<img width="708" alt="newadmin" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/69a68b60-5eaa-48d0-838a-da5c03fe1585"></br>
+##user
+<br>
+<img width="663" alt="newuser" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/d94a3588-8d21-42de-b358-b4c24215ab3a">
+</br>
+#User Login
+</br>
+<img width="708" alt="loginuser" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/7e0a3524-022b-41a4-a167-fa9cca32c26b">
+<img width="711" alt="useroptions" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/409fd19d-f498-4164-9f8b-07d5e7ceb497">
+</br>
+#Admin Login
+</br>
+<img width="708" alt="adminlogin" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/323fbb23-360d-4151-ba6a-5c51ef359fb6">
+<img width="715" alt="admin_options" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/0d9de2b6-aa79-4329-9495-48dc4f55cac0">
+</br>
 
+##Forgot Password
+<br>
+<img width="690" alt="password_reset" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/a01b3e67-06ce-49a5-bdf2-8fa252df273f">
+</br>
+##Logout
+<br>
+<img width="642" alt="logout" src="https://github.com/nemoNehaM/java_mini_project5633/assets/118504105/a3771a53-7b7d-4fb1-aea4-5cac93992e3b">
+</br>
 # Setup Instructions
 Clone the repository onto your local machine
 Ensure that Java and MySQL are installed on your machine
